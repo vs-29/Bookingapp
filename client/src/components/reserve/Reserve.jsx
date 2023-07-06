@@ -85,8 +85,8 @@ const Reserve = ({setOpen,hotelId}) => {
                     <div className="rItemInfo">
                       <div className="rTitle">       {item.title}     </div>
                       <div className="rDesc">   {item.desc}         </div>
-                      <div className="rMax">  Max People :  <b>{item.maxPeople}</b></div>
-                      <div className="rPrice">  Max Price : Rs. <b>{item.price}</b></div>
+                      <div className="rMax">  Max People :  {item.maxPeople}</div>
+                      <div className="rPrice">  Max Price : Rs. {item.price}</div>
                     </div>
 
                       <div className="rSelectRooms">
