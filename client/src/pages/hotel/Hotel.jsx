@@ -42,11 +42,11 @@ export const Hotel = () => {
     setSlideNumber(i);
     setOpen(true);
   };
-
+  const photoCount=data.photos?.length-1;
   const handleMove=(direction)=>{
     let newSliderNumber;
-    if(direction==="l"){ newSliderNumber=slideNumber===0? 5:slideNumber-1;}
-    else{newSliderNumber=slideNumber===5? 0:slideNumber+1;}
+    if(direction==="l"){ newSliderNumber=slideNumber===0? photoCount:slideNumber-1;}
+    else{newSliderNumber=slideNumber===photoCount? 0:slideNumber+1;}
 
     setSlideNumber(newSliderNumber);
   }
