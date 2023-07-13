@@ -75,7 +75,7 @@ export const Header = ({type}) => {
         <div className="headerSearch">
             <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon"/>
-                <input type="text"placeholder="Where do you wish to visit?" className="headerSearchInput" onChange={e=>setDestination(e.target.value)}/>
+                <input type="text"placeholder="Where do you wish to visit?" className="headerSearchInput" onChange={e=>setDestination(e.target.value.toLowerCase())}/>
             </div>
 
             <div className="headerSearchItem">
