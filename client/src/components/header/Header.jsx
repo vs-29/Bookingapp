@@ -55,7 +55,7 @@ export const Header = ({type}) => {
   const handleSearch = () => {
       dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
       navigate("/hotels", { state: { destination, date, options } });
-      console.log(date);
+      // console.log(date);
   }
   
   return (

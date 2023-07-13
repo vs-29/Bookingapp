@@ -22,19 +22,7 @@ app.use(express.json())
 
 app.use(cors());
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-//     next();
-//   });
-  
-// app.use((req, res, next) => {
-//     const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
-//     const origin = req.headers.origin;
-//     if (allowedOrigins.includes(origin)) {
-//       res.header('Access-Control-Allow-Origin', origin);
-//     }
-//     next();
-//   });
+
   
 app.use((req, res, next) => {
   const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];

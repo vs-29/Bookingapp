@@ -32,7 +32,7 @@ export const FeaturedProperties = () => {
 
   const navigateHotel = (item) => {
     setDestination(item.city)
-    console.log(item.city);
+    // console.log(item.city);
     dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
     navigate(`/hotels/${item._id}`, { state: { destination, date, options } });
   }
