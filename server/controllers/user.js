@@ -34,10 +34,31 @@ const getallUsers=async(req,res,next)=>{
    }
 }
 
+const userByusername=async(req, res, next)=> {
+    try{
+        const user=await User.find({username:req.query.username});
+        res.status(200).json(user);
+    }catch(er)
+    {
+        next(err);
+    }
+}
+
+const userByemail=async(req, res, next)=> {
+    try{
+        const user=await User.find({email:req.query.email});
+        res.status(200).json(user);
+    }catch(er)
+    {
+        next(err);
+    }
+}
 
 module.exports = {
     updateUser,
     deleteUser,
     getUser,
-    getallUsers
+    getallUsers,
+    userByusername,
+    userByemail
   };

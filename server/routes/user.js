@@ -12,6 +12,9 @@ router.get("/checkuser/:id",verifyUser,(req,res,next)=>{
 router.get("/checkadmin/:id",verifyIsAdmin,(req,res,next)=>{
   res.send("hello Admin,you are logged in and u can delete all accounts")
 })
+router.get("/findusername", usercontollers.userByusername);
+router.get("/findemail", usercontollers.userByemail);
+
 //update
 router.put("/:id",verifyUser,usercontollers.updateUser)
 //get

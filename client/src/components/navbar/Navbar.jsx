@@ -12,12 +12,11 @@ import { AuthContext } from "../../context/AuthContext";
         e.preventDefault();
          try{
           dispatch({ type: 'LOG_OUT' });
-          // window.location.reload();
-          console.log("dispatched")
          }catch(err){
           console.log(err);
          }
       }
+
     return(
         <div className="navbar">
             <div className="navContainer">
@@ -28,9 +27,7 @@ import { AuthContext } from "../../context/AuthContext";
                 {user ? (
                 <>
                 <div className="navItems">
-                    <span className="username">
-                        {/* <img src={user.details.img} alt="" srcset="" className="userimg"/> */}
-                         {user.details.username.charAt(0).toUpperCase() + user.details.username.slice(1)}</span>
+                    <span className="username">{user.username.charAt(0).toUpperCase() + user.username.slice(1)}</span>
                     
                  <button className="logout" onClick={(e)=>{Logout(e)}}   style={{padding:7 ,margin:15}}>Logout</button>
                  </div>

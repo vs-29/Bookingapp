@@ -1,4 +1,3 @@
-
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useContext, useState } from 'react';
 import './register.css';
@@ -25,11 +24,75 @@ export const Register = () => {
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    console.log(credentials);
   };
+
+  const validateEmail = (input) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(input);
+  };
+
+  
 
   const handleClick = async (e) => {
     e.preventDefault();
+
+
+    if (!file) {
+      alert("Please upload user's photo");
+      return;
+    }
+    if (!credentials.username) {
+      alert("Please fill Username");
+      return;
+    }
+    if (!credentials.email || !validateEmail(credentials.email)) {
+      alert("Please fill valid email address");
+      return;
+    }
+    if (!credentials.phone || credentials.phone.length!=10) {
+      alert("Please fill your valid contact number");
+      return;
+    }
+    if (!credentials.password) {
+      alert("Please fill valid password");
+      return;
+    }
+
+
+    const checkEmailUniqueness = async (email) => {
+      try {
+        const response = await axiosInstance.get(`/users/findemail?email=${email}`);
+        return response.data.length;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    };
+    
+    const checkUsernameUniqueness = async (username) => {
+      try {
+        const response = await axiosInstance.get(`/users/findusername?username=${username}`);
+        return response.data.length;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    const FindemailLen = await checkEmailUniqueness(credentials.email);
+    const FindusernameLen = await checkUsernameUniqueness(credentials.username);
+
+    if (FindusernameLen!=0) {
+      alert("Username is already taken. Please choose a different one.");
+      return;
+    }
+    if (FindemailLen!=0) {
+      alert("Email address is already taken. Please choose a different one.");
+      return;
+    }
+
+    
+
     const data=new FormData()
     data.append("file",file)
     data.append("upload_preset","upload")
@@ -52,7 +115,6 @@ export const Register = () => {
       alert("User created successfully")
       navigate('/');
     } catch (err) {
-      console.log('error aa raha');
       dispatch({ type: 'REGISTER_FAILURE', payload: err.response?.data });
     }
   };
@@ -75,15 +137,15 @@ export const Register = () => {
               <form>
                 <div className="rformInput">
                   <label htmlFor="file"> Image: <DriveFolderUploadOutlinedIcon className="icon" /> </label>
-                  <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} style={{ display: "none" }}
+                  <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} style={{ display: "none" } }
                   />
                 </div>
-                <label> Username: <br /> <input type="text" name="username" onChange={handleChange} required/> </label>
-                <label> Email: <br /> <input type="email" name="email" onChange={handleChange}  required/> </label>
-                <label> Country: <br /> <input type="text" name="country" onChange={handleChange} required/></label>
-                <label> City: <br /> <input type="text" name="city" onChange={handleChange} required/></label>
-                <label>Phone Number: <br /> <input type="tel" name="phone" onChange={handleChange} required/></label>
-                <label>Password: <br /> <input type="password" name="password" onChange={handleChange} required /> </label>
+                <label> Username: <br /> <input type="text" name="username" onChange={handleChange}/> </label>
+                <label> Email: <br /> <input type="email" name="email" onChange={handleChange} /> </label>
+                <label> Country: <br /> <input type="text" name="country" onChange={handleChange} /></label>
+                <label> City: <br /> <input type="text" name="city" onChange={handleChange} /></label>
+                <label>Phone Number: <br /> <input type="tel" name="phone" onChange={handleChange} /></label>
+                <label>Password: <br /> <input type="password" name="password" onChange={handleChange} /> </label>
             <button onClick={(e)=>handleClick(e)}>Send</button>
               </form>
               <br />
@@ -98,4 +160,3 @@ export const Register = () => {
   </div>
   );
 };
-

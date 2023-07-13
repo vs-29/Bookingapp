@@ -18,7 +18,7 @@ const Reserve = ({setOpen,hotelId}) => {
         const end = new Date(endDate);
         const date = new Date(start.getTime());
         const dates= [];
-        // console.log(start, end);
+        
         while (date <= end) {
           dates.push(new Date(date).getTime());
           date.setDate(date.getDate() + 1);
@@ -44,34 +44,34 @@ const Reserve = ({setOpen,hotelId}) => {
       const value=e.target.value;//room id mil rhi
      
       setSelectedRooms(checked?[...selectedRooms,value]:selectedRooms.filter((item)=>item!==value))
-      console.log("handleselect called");
-      //console.log(selectedRooms)
+      
+     
     }
 
     
     const navigate = useNavigate();
 
+   
     const handleClick = async () => {
+      if (selectedRooms.length > 0) {
         try {
-             let promise =await Promise.all(
+          let promise = await Promise.all(
             selectedRooms.map((roomId) => {
-              // console.log(roomId);
-              // console.log(Alldates);
-              const res = axiosInstance.put(`/rooms/availability/${roomId}`,{
+              const res = axiosInstance.put(`/rooms/availability/${roomId}`, {
                 dates: Alldates,
               });
-              console.log("frontend se data ja rha")
-              // console.log(res);
-              // console.log(res.data);//undefined
               return res.data;
             })
           );
-       
           setOpen(false);
-          alert("Reserved Successfully")
+          alert("Reserved Successfully");
           navigate("/");
         } catch (err) {}
-      };
+      } else {
+        alert("atleast choose 1 room")
+      }
+    };
+    
       
   return (
     <div className='reserve'>

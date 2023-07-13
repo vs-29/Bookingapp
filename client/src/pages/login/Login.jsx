@@ -3,6 +3,7 @@ import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../hooks/api";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -15,7 +16,6 @@ export const Login = () => {
 
     const handleChange=(e)=>{
         setCredentials({...credentials, [e.target.name]:e.target.value});
-        console.log(credentials);
     };
 
     const handleClick= async (e)=>{
@@ -24,28 +24,33 @@ export const Login = () => {
         dispatch({type:"LOGIN_START"})
         try {
            const  res= await axiosInstance.post("auth/login",credentials);
-           console.log(res);
-           console.log('in try block after api call');
            dispatch({type:"LOGIN_SUCCESS",payload: res?.data}) 
            alert("logged In successfully")
            navigate("/")
         } catch (err) {
-            console.log('error aa raha');
             dispatch({type:"LOGIN_FAILURE",payload:err.response?.data})
         }
     };
-
-    //console.log(user)
+    
   return (
     <div className="login">
         <div className="lContainer">
+            <div className="ll">
             <span>Login</span>
            
-            <input type="text" placeholder="Username" id="username"  name="username" onChange={(e)=>handleChange(e)} className="lInput" />
-            <input type="password" placeholder="Password" id="password" name="password" onChange={(e)=>handleChange(e)} className="lInput" />
-            <button disabled={loading} onClick={(e)=>handleClick(e)} className="lButton">Login</button> 
-            {error && <span>{error.message}</span>}
-            
+                <input type="text" placeholder="Username" id="username"  name="username" onChange={(e)=>handleChange(e)} className="lInput" />
+                <input type="password" placeholder="Password" id="password" name="password" onChange={(e)=>handleChange(e)} className="lInput" />
+                <button disabled={loading} onClick={(e)=>handleClick(e)} className="lButton">Login</button> 
+                {error && <span>{error.message}</span>}
+                <br />
+            </div>
+            <Link to="/" style={{textDecoration:"none"}}>
+                <span className="logo2">Go to HomePage</span>
+            </Link>
+            <br />
+            <Link to="/register" style={{textDecoration:"none"}}>
+                <span className="logo2">Go to Register Page</span>
+            </Link>
         </div>
     </div>
   )

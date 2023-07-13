@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://vsp-booking.onrender.com'
+  baseURL: 'http://localhost:8800'
 });
 
 export default axiosInstance;

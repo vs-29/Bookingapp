@@ -13,9 +13,7 @@ const register =async(req,res,next)=>{
         password:hash,
         
        })
-
-       await newUser.save()
-      
+       await newUser.save()      
        res.status(201).send("user created successfully")
   }catch(err){
      next(err)
@@ -35,7 +33,7 @@ const login =async(req,res,next)=>{
 
        res.cookie("access_token",token,{
          httpOnly:true,
-       }).status(200).json({ details: { ...otherDetails }, isAdmin });
+       }).status(200).json(user);
 
     }catch(err){
        next(err)
@@ -46,4 +44,3 @@ const login =async(req,res,next)=>{
     register,
     login
   }
-  
